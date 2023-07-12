@@ -1,5 +1,8 @@
 package org.example.Application.Service;
 
+import org.example.Application.producingwebservice.CountryEndpoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.xml.transform.*;
@@ -12,6 +15,8 @@ import java.io.StringWriter;
 @Service
 public class ServiceXml {
 
+    Logger logger = LoggerFactory.getLogger(CountryEndpoint.class);
+
     public String xmlDeleteCDATA(String xml) {
         try {
             xml = xml.trim();
@@ -22,30 +27,34 @@ public class ServiceXml {
                     xml = xml.substring(0, i);
                 }
             }
-        }catch (Exception e){
-            e.printStackTrace();
+            logger.info("<![CDATA[...]]> удалена");
+            if (xml.equals("")) {
+                throw new IllegalStateException("Пустой XML");
+            }
+        } catch (IllegalStateException e) {
+            logger.error("Ошибка, состояние XML не соответствует ожидаемому: " + e.getMessage());
+            throw e;
         }
-        return xmlXSLT(xml);
+        return xmlToXSLT(xml);
     }
 
-    private String xmlXSLT(String xml) {
-        StringWriter writer = new StringWriter();
+    private String xmlToXSLT(String xml) {
+        StringWriter stringWriter = new StringWriter();
         try {
-            StringReader reader = new StringReader(xml);
-            Source source = new StreamSource(reader);
-
-            Result result = new StreamResult(writer);
-
+            StringReader stringReader = new StringReader(xml);
+            Source source = new StreamSource(stringReader);
+            Result result = new StreamResult(stringWriter);
             Source xsltSource = new StreamSource(new File("src/main/resources/response_soap_xslt.xsl"));
-
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer(xsltSource);
             transformer.transform(source, result);
+            logger.info("XSLT преобразование выполнено");
         } catch (TransformerException e) {
-            e.printStackTrace();
+            logger.error("Ошибка: XSLT преобразование не отработало: " + e.getMessage());
         }
-        xml = writer.toString();
+        xml = stringWriter.toString();
         xml = "<![CDATA[" + xml + "]]>";
+        logger.info("XML после XSLT преобразования сформирован");
         return xml;
     }
 }

@@ -7,11 +7,9 @@ import java.util.Collections;
 
 @SpringBootApplication
 public class Application {
-    public static void main(String [] args){
-        //SpringApplication.run(Application.class, args);
-        SpringApplication app = new SpringApplication(Application.class);
-        app.setDefaultProperties(Collections
-                .singletonMap("server.port", "8083"));
-        app.run(args);
+    public static void main(String[] args) {
+        SpringApplication springApplication = new SpringApplication(Application.class);
+        springApplication.setDefaultProperties(Collections.singletonMap("server.port", "8083"));
+        springApplication.run(args);
     }
 }

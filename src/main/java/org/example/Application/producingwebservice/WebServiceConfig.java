@@ -17,30 +17,30 @@ import org.springframework.xml.xsd.XsdSchema;
 public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
-        MessageDispatcherServlet servlet = null;
+        MessageDispatcherServlet messageDispatcherServlet = null;
         try {
-            servlet = new MessageDispatcherServlet();
-            servlet.setApplicationContext(applicationContext);
-            servlet.setTransformWsdlLocations(true);
+            messageDispatcherServlet = new MessageDispatcherServlet();
+            messageDispatcherServlet.setApplicationContext(applicationContext);
+            messageDispatcherServlet.setTransformWsdlLocations(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ServletRegistrationBean<>(servlet, "/ws/*");
+        return new ServletRegistrationBean<>(messageDispatcherServlet, "/ws/*");
     }
 
     @Bean(name = "countries")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
-        DefaultWsdl11Definition wsdl11Definition = null;
+        DefaultWsdl11Definition defaultWsdl11Definition = null;
         try {
-            wsdl11Definition = new DefaultWsdl11Definition();
-            wsdl11Definition.setPortTypeName("CountriesPort");
-            wsdl11Definition.setLocationUri("/ws");
-            wsdl11Definition.setTargetNamespace("http://www.example.org/Application/producingwebservice");
-            wsdl11Definition.setSchema(countriesSchema);
+            defaultWsdl11Definition = new DefaultWsdl11Definition();
+            defaultWsdl11Definition.setPortTypeName("CountriesPort");
+            defaultWsdl11Definition.setLocationUri("/ws");
+            defaultWsdl11Definition.setTargetNamespace("http://www.example.org/Application/producingwebservice");
+            defaultWsdl11Definition.setSchema(countriesSchema);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return wsdl11Definition;
+        return defaultWsdl11Definition;
     }
 
     @Bean
