@@ -24,23 +24,6 @@
 
     <dependencies>
 
-        <!--Spring-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>-->
-
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20180813</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web-services</artifactId>
@@ -90,7 +73,7 @@
                 </executions>
                 <configuration>
                     <sources>
-                        <source>${project.basedir}/src/main/resources/countries.xsd</source>
+                        <source>${project.basedir}/src/main/resources/scheme.xsd</source>
                     </sources>
                 </configuration>
             </plugin>
