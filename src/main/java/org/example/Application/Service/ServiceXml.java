@@ -15,7 +15,7 @@ import java.io.StringWriter;
 @Service
 public class ServiceXml {
 
-    Logger logger = LoggerFactory.getLogger(CountryEndpoint.class);
+    Logger logger = LoggerFactory.getLogger(ServiceXml.class);
 
     public String xmlDeleteCDATA(String xml) {
         try {
