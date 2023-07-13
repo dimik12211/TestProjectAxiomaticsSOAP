@@ -3,8 +3,6 @@ package org.example.Application.producingwebservice;
 import org.example.Application.Service.ServiceXml;
 import org.example.application.producingwebservice.GetCountryRequest;
 import org.example.application.producingwebservice.GetCountryResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
